@@ -1,0 +1,96 @@
+@import url("https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
+
+:root {
+  --blueLight: #4455da;
+  --blueDark: #02012b;
+  --neutral900: #03012d;
+  --Neutral800: #272541;
+  --Neutral700: #312f4b;
+  --Neutral600: #3d3b5e;
+  --Neutral300: #aeaeb7;
+  --Neutral200: #d5d4d9;
+  --Neutral0: #ffffff;
+  --bricol: "Bricolage Grotesque", sans-serif;
+  --dm: "DM Sans", sans-serif;
+}
+
+body {
+  font-size: 18px;
+  background-color: var(--blueDark);
+  padding: 5px 5px 0px 5px;
+  font-family: "DM Sans", sans-serif;
+  color: var(--Neutral0);
+  transition: 0.5s ease-in-out;
+  @media (min-width: 1440px) {
+    padding: 10px 10px 0px 10px;
+  }
+}
+
+header {
+  font-family: "Bricolage Grotesque", sans-serif;
+}
+
+.units-dropDown {
+  width: 150px;
+  height: 40px;
+  border: none;
+  border-radius: 10px;
+  background: #d5d4d93e;
+  font-family: "DM sans", sans-serif;
+  &:hover {
+    background: #d5d4d957;
+    transition: 0.2s ease-in-out;
+  }
+  @media (min-width: 1024px) and (max-width: 1280px) {
+    width: 140px;
+    height: 35px;
+    justify-content: space-evenly;
+  }
+  @media (max-width: 650px) {
+    width: 125px;
+    height: 35px;
+    background: #d5d4d957;
+  }
+}
+.daily-dropdown {
+  border: none;
+  background: #d5d4d93e;
+  font-family: "DM sans", sans-serif;
+}
+
+.home {
+  @media (max-width: 720px) {
+    overflow: hidden;
+    overflow-y: scroll;
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
+
+  overflow: hidden;
+  overflow-y: auto;
+}
+.daily {
+  @media (max-width: 1280) {
+    width: 95px;
+    height: 155px;
+  }
+}
+
+.skeleton-main {
+  @media (max-width: 1280px) {
+    width: 90%;
+    height: 250px;
+  }
+}
+.hero-para {
+  font-family: "Bricolage Grotesque", sans-serif;
+}
+.hourly-reports {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.hourly-reports::-webkit-scrollbar {
+  display: none;
+}
