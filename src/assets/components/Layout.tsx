@@ -10,17 +10,31 @@ import {
 } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 
-interface UnitFormats {
-  temp: string;
-  windSpeed: string;
-  precipitation: string;
-}
+import type {
+  UnitFormats,
+  WeatherData,
+  HourlyWeather,
+  SelectedLocation,
+  DailyWeather,
+} from "../Types/weatherTypes";
 
 interface LayoutProps {
   units: UnitFormats;
+  isHourlyLoading: boolean;
+  weatherData: WeatherData | null;
+  hourlyData: HourlyWeather[];
+  selectedLocation: SelectedLocation | null;
+  onDaySelect: (date: string) => void;
 }
 
-const Layout = ({ units }: LayoutProps) => {
+const Layout = ({
+  units,
+  isHourlyLoading,
+  weatherData,
+  hourlyData,
+  selectedLocation,
+  onDaySelect,
+}: LayoutProps) => {
   return (
     <Container
       maxW={"full"}

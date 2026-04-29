@@ -29,10 +29,18 @@ const Home = () => {
     windSpeed: "km/h",
     precipitation: "mm",
   });
-  const [isLoading, setIsLoading] = useState(false);
   const [selectedLocation, setSelectedLocation] =
     useState<SelectedLocation | null>(null);
 
+  const {
+    weatherData,
+    hourlyData,
+    isHourlyLoading,
+    isLoading,
+    error,
+    fetchWeather,
+    fetchHourlyWeather,
+  } = useWeather();
   // Helper functons
   const handleUnitFormatChange = (
     unit: "temp" | "windSpeed" | "precipitation",
@@ -45,7 +53,14 @@ const Home = () => {
   };
   const handleLocationSelection = (place: SelectedLocation) => {
     setSelectedLocation(place);
+    fetchWeather(place, unitFormats);
   };
+  // Watch the unitformats state, if it changes, check if the user has selected some location already, if yes? refetch weather data
+  useEffect(() => {
+    if (selectedLocation) {
+      fetchWeather(selectedLocation, unitFormats);
+    }
+  }, [unitFormats]);
   return (
     <div className="home">
       <header>
@@ -81,7 +96,11 @@ const Home = () => {
             )}
           </VStack>
 
-          {isLoading ? <SkeletonLayout /> : <Layout />}
+          {isLoading ? (
+            <SkeletonLayout />
+          ) : (
+            <Layout units={unitFormats} isHourlyLoading={isHourlyLoading} />
+          )}
         </main>
       </VStack>
     </div>
