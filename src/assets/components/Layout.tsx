@@ -334,11 +334,13 @@ const HourlyForecastStack = ({
         display={"flex"}
         flex={"1 1 auto"}
       >
-        {Array(24)
-          .fill(0)
-          .map((_, index) => (
-            <HourlyReport key={index} units={units} />
-          ))}
+        {hourlyData.length > 0
+          ? hourlyData.map((hour, index) => (
+              <HourlyReport key={index} units={units} entry={hour} />
+            ))
+          : Array(24)
+              .fill(0)
+              .map((_, index) => <HourlyReport key={index} units={units} />)}
       </VStack>
     </VStack>
   );
