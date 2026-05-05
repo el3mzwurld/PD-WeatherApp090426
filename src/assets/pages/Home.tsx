@@ -99,7 +99,17 @@ const Home = () => {
           {isLoading ? (
             <SkeletonLayout />
           ) : (
-            <Layout units={unitFormats} isHourlyLoading={isHourlyLoading} />
+            <Layout
+              units={unitFormats}
+              isHourlyLoading={isHourlyLoading}
+              weatherData={weatherData}
+              hourlyData={hourlyData}
+              selectedLocation={selectedLocation}
+              onDaySelect={(date) =>
+                selectedLocation &&
+                fetchHourlyWeather(date, selectedLocation, unitFormats)
+              }
+            />
           )}
         </main>
       </VStack>
