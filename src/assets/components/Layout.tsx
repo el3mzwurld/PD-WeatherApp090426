@@ -124,13 +124,13 @@ const MainStack = ({
     >
       <Box
         width={{ lg: "566px", xl: "801px" }}
-        height={{ lg: "203px", xl: "286px" }}
-        background={"#d5d4d957"}
+        height={{ lg: "220px", xl: "286px" }}
         backdropBlur={"blur"}
         borderRadius={{ lg: "lg", xl: "xl" }}
         position={"relative"}
         zIndex={0}
         fontFamily={"Dm sans, sans-serif"}
+        overflow={"hidden"}
       >
         <Image
           position={"absolute"}
@@ -160,7 +160,7 @@ const MainStack = ({
               {selectedLocation ? (
                 <HStack>
                   <span>{selectedLocation.name}</span>,{" "}
-                  <span>{selectedLocation.country_code}</span>
+                  <span>{selectedLocation.country}</span>
                 </HStack>
               ) : (
                 "Search up a city"
@@ -181,8 +181,8 @@ const MainStack = ({
               {current ? (
                 <Box>
                   {" "}
-                  <span>{Math.round(current.temperature_2m)}</span>
-                  <span> {units.temp === "celsuis" ? "C" : "F"}°</span>
+                  <span>{Math.round(current.temperature_2m)}°</span>
+                  <span> {units.temp === "celsius" ? "C" : "F"}</span>
                 </Box>
               ) : (
                 "0°"
@@ -199,7 +199,9 @@ const MainStack = ({
       >
         <MainForecastCard
           label="Feels like"
-          value={weatherData ? weatherData.current.apparent_temperature : "--"}
+          value={
+            weatherData ? `${weatherData.current.apparent_temperature}°` : "--"
+          }
         />
         <MainForecastCard
           label="Wind"
@@ -387,13 +389,13 @@ const HourlyReport = ({ units, entry }: HourlyReportProps) => {
     >
       {entry && (
         <>
-          <HStack fontSize={{ lg: 13, xl: 15 }} color={"white"} opacity={0.7}>
+          <HStack fontSize={{ lg: 13, xl: 15 }} color={"white"}>
             {formatHour(entry.time)}
             {/* Remember to put weather icon logic here */}
           </HStack>
           <Text fontSize={{ lg: 12, xl: 14 }} color={"white"} fontWeight={500}>
-            {Math.round(entry.temperature_2m)}
-            <span> {units.temp === "celsius" ? "C" : "F"}°</span>
+            {Math.round(entry.temperature_2m)}°
+            <span> {units.temp === "celsius" ? "C" : "F"}</span>
           </Text>
         </>
       )}
