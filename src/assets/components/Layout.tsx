@@ -150,35 +150,44 @@ const MainStack = ({
           justifyContent={"space-between"}
           px={5}
         >
-          <VStack color={"white"} alignItems={"start"} asChild>
-            <p>
-              <Text
-                fontSize={{ lg: 18, xl: 20 }}
-                fontWeight={600}
-                fontStyle={"italic"}
-                wordSpacing={1.5}
-              >
-                {selectedLocation
-                  ? selectedLocation.country
-                  : "Search up a city"}
-              </Text>
-              <Text fontSize={{ lg: 14, xl: 26 }}>
-                {new Date().toDateString()}
-              </Text>
-            </p>
+          <VStack color={"white"} alignItems={"start"}>
+            <Text
+              fontSize={{ lg: 18, xl: 20 }}
+              fontWeight={600}
+              fontStyle={"italic"}
+              wordSpacing={1.5}
+            >
+              {selectedLocation ? (
+                <HStack>
+                  <span>{selectedLocation.name}</span>,{" "}
+                  <span>{selectedLocation.country_code}</span>
+                </HStack>
+              ) : (
+                "Search up a city"
+              )}
+            </Text>
+            <Text fontSize={{ lg: 14, xl: 26 }}>
+              {new Date().toDateString()}
+            </Text>
           </VStack>
 
-          <HStack asChild>
-            <p>
-              <Text
-                fontSize={{ lg: 48, xl: 48 }}
-                fontWeight={600}
-                fontStyle={"italic"}
-                wordSpacing={1.5}
-              >
-                {current ? `${Math.round(current.temperature_2m)}°` : "0°"}
-              </Text>
-            </p>
+          <HStack>
+            <Text
+              fontSize={{ lg: 48, xl: 48 }}
+              fontWeight={600}
+              fontStyle={"italic"}
+              wordSpacing={1.5}
+            >
+              {current ? (
+                <Box>
+                  {" "}
+                  <span>{Math.round(current.temperature_2m)}</span>
+                  <span> {units.temp === "celsuis" ? "C" : "F"}°</span>
+                </Box>
+              ) : (
+                "0°"
+              )}
+            </Text>
           </HStack>
         </HStack>
       </Box>
@@ -256,10 +265,16 @@ const DailyForecastCard = (props: DailyProps) => {
           <Text>{props.day.dayShort}</Text>
 
           <Box>{/* weather code logic will go here */}</Box>
-          <Text>
-            {Math.round(props.day.temp_max)}
-            {Math.round(props.day.temp_min)}
-          </Text>
+          <HStack
+            width={"full"}
+            fontSize={{ lg: 12, xl: 14 }}
+            alignItems={"center"}
+            padding={1}
+            justifyContent={"space-between"}
+          >
+            <span>{Math.round(props.day.temp_max)}°</span>
+            <span>{Math.round(props.day.temp_min)}°</span>
+          </HStack>
         </>
       )}
     </VStack>
@@ -378,7 +393,7 @@ const HourlyReport = ({ units, entry }: HourlyReportProps) => {
           </HStack>
           <Text fontSize={{ lg: 12, xl: 14 }} color={"white"} fontWeight={500}>
             {Math.round(entry.temperature_2m)}
-            {units.temp}°
+            <span> {units.temp === "celsius" ? "C" : "F"}°</span>
           </Text>
         </>
       )}
