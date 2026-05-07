@@ -13,6 +13,14 @@ import { useEffect, useState } from "react";
 
 // Images
 import mainCompBg from "../img/images/bg-today-large.svg";
+// Images....Weather icons
+import iconDrizzle from "../img/images/icon-drizzle.webp";
+import iconFog from "../img/images/icon-fog.webp";
+import iconCloudy from "../img/images/icon-partly-cloudy.webp";
+import iconRain from "../img/images/icon-rain.webp";
+import iconSunny from "../img/images/icon-sunny.webp";
+import iconStorm from "../img/images/icon-storm.webp";
+import iconSnow from "../img/images/icon-snow.webp";
 
 // Types
 import type {
@@ -31,7 +39,6 @@ interface LayoutProps {
   selectedLocation: SelectedLocation | null; //SelectedLocation data type, passing this in will help us handle location data, each location will have a name, geolocation data(long. & lang.), a country code and a bunch of other stuff relevenat to the location data.
   onDaySelect: (date: string) => void; //helper function to immediately fetch hourly data once a location is seelcted in the daily menu
 }
-
 const Layout = ({
   units,
   isHourlyLoading,
@@ -103,7 +110,6 @@ const Layout = ({
     </Container>
   );
 };
-
 interface MainStackProps {
   units: UnitFormats;
   weatherData: WeatherData | null;
@@ -258,20 +264,113 @@ const DailyForecastCard = (props: DailyProps) => {
       height={{ lg: "118px", xl: "165px" }}
       bgColor={"#d5d4d93e"}
       _hover={{ bgColor: "#ebeaef3d" }}
-      padding={"10px 5px"}
+      padding={"5px 5px"}
       align={"center"}
       justify={"space-between"}
+      borderRadius={"md"}
     >
       {props.day && (
         <>
-          <Text>{props.day.dayShort}</Text>
+          <Text fontSize={13}>{props.day.dayShort}</Text>
 
-          <Box>{/* weather code logic will go here */}</Box>
+          <Box
+            display={"flex"}
+            flex={1}
+            w={"full"}
+            h={"full"}
+            alignItems={"center"}
+            justifyContent={"center"}
+          >
+            {props.day.weather_code < 2 && (
+              <img
+                src={iconSunny}
+                alt=""
+                style={{
+                  width: "60%",
+                  height: "60%",
+                  objectFit: "cover",
+                  objectPosition: "center",
+                }}
+              />
+            )}
+            {props.day.weather_code >= 2 && props.day.weather_code < 45 && (
+              <img
+                src={iconCloudy}
+                alt=""
+                style={{
+                  width: "60%",
+                  height: "60%",
+                  objectFit: "cover",
+                  objectPosition: "center",
+                }}
+              />
+            )}
+            {props.day.weather_code >= 45 && props.day.weather_code < 51 && (
+              <img
+                src={iconFog}
+                alt=""
+                style={{
+                  width: "60%",
+                  height: "60%",
+                  objectFit: "cover",
+                  objectPosition: "center",
+                }}
+              />
+            )}
+            {props.day.weather_code >= 51 && props.day.weather_code < 61 && (
+              <img
+                src={iconFog}
+                alt=""
+                style={{
+                  width: "60%",
+                  height: "60%",
+                  objectFit: "cover",
+                  objectPosition: "center",
+                }}
+              />
+            )}
+            {props.day.weather_code >= 61 && props.day.weather_code < 71 && (
+              <img
+                src={iconRain}
+                alt=""
+                style={{
+                  width: "60%",
+                  height: "60%",
+                  objectFit: "cover",
+                  objectPosition: "center",
+                }}
+              />
+            )}
+            {props.day.weather_code >= 71 && props.day.weather_code < 95 && (
+              <img
+                src={iconSnow}
+                alt=""
+                style={{
+                  width: "60%",
+                  height: "60%",
+                  objectFit: "cover",
+                  objectPosition: "center",
+                }}
+              />
+            )}
+            {props.day.weather_code >= 95 && props.day.weather_code < 100 && (
+              <img
+                src={iconStorm}
+                alt=""
+                style={{
+                  width: "60%",
+                  height: "60%",
+                  objectFit: "cover",
+                  objectPosition: "center",
+                }}
+              />
+            )}
+          </Box>
           <HStack
             width={"full"}
             fontSize={{ lg: 12, xl: 14 }}
             alignItems={"center"}
-            padding={1}
+            padding={0.5}
             justifyContent={"space-between"}
           >
             <span>{Math.round(props.day.temp_max)}°</span>
@@ -290,7 +389,6 @@ interface HourlyForecastStackProps {
   dailyData: DailyWeather[];
   onDaySelect: (date: string) => void;
 }
-
 const HourlyForecastStack = ({
   units,
   hourlyData,
@@ -377,9 +475,9 @@ const HourlyReport = ({ units, entry }: HourlyReportProps) => {
     <Box
       width={"full"}
       height={{ lg: "43px", xl: "60px" }}
-      opacity={0.5}
-      bgColor={"#d5d4d93e"}
-      _hover={{ bgColor: "#ebeaef3d" }}
+      opacity={1}
+      bgColor={"#d5d4d917"}
+      _hover={{ bgColor: "#ebeaef1f" }}
       flexShrink={0}
       borderRadius={{ lg: "md", xl: "lg" }}
       display={"flex"}
@@ -389,11 +487,106 @@ const HourlyReport = ({ units, entry }: HourlyReportProps) => {
     >
       {entry && (
         <>
-          <HStack fontSize={{ lg: 13, xl: 15 }} color={"white"}>
-            {formatHour(entry.time)}
-            {/* Remember to put weather icon logic here */}
+          <HStack
+            fontSize={{ lg: 13, xl: 15 }}
+            color={"white"}
+            alignItems={"center"}
+            justifyContent={"center"}
+          >
+            <Text width={"50px"} textAlign={"left"} pl={2}>
+              {formatHour(entry.time)}
+            </Text>
+            {entry.weather_code < 2 && (
+              <img
+                src={iconSunny}
+                alt=""
+                style={{
+                  width: "38px",
+                  height: "38px",
+                  objectFit: "cover",
+                  objectPosition: "center",
+                }}
+              />
+            )}
+            {entry.weather_code >= 2 && entry.weather_code < 45 && (
+              <img
+                src={iconCloudy}
+                alt=""
+                style={{
+                  width: "38px",
+                  height: "38px",
+                  objectFit: "cover",
+                  objectPosition: "center",
+                }}
+              />
+            )}
+            {entry.weather_code >= 45 && entry.weather_code < 51 && (
+              <img
+                src={iconFog}
+                alt=""
+                style={{
+                  width: "38px",
+                  height: "38px",
+                  objectFit: "cover",
+                  objectPosition: "center",
+                }}
+              />
+            )}
+            {entry.weather_code >= 51 && entry.weather_code < 61 && (
+              <img
+                src={iconFog}
+                alt=""
+                style={{
+                  width: "38px",
+                  height: "38px",
+                  objectFit: "cover",
+                  objectPosition: "center",
+                }}
+              />
+            )}
+            {entry.weather_code >= 61 && entry.weather_code < 71 && (
+              <img
+                src={iconRain}
+                alt=""
+                style={{
+                  width: "38px",
+                  height: "38px",
+                  objectFit: "cover",
+                  objectPosition: "center",
+                }}
+              />
+            )}
+            {entry.weather_code >= 71 && entry.weather_code < 95 && (
+              <img
+                src={iconSnow}
+                alt=""
+                style={{
+                  width: "38px",
+                  height: "38px",
+                  objectFit: "cover",
+                  objectPosition: "center",
+                }}
+              />
+            )}
+            {entry.weather_code >= 95 && entry.weather_code < 100 && (
+              <img
+                src={iconStorm}
+                alt=""
+                style={{
+                  width: "38px",
+                  height: "38px",
+                  objectFit: "cover",
+                  objectPosition: "center",
+                }}
+              />
+            )}
           </HStack>
-          <Text fontSize={{ lg: 12, xl: 14 }} color={"white"} fontWeight={500}>
+          <Text
+            fontSize={{ lg: 12, xl: 14 }}
+            color={"white"}
+            fontWeight={500}
+            opacity={0.7}
+          >
             {Math.round(entry.temperature_2m)}°
             <span> {units.temp === "celsius" ? "C" : "F"}</span>
           </Text>
@@ -408,7 +601,6 @@ interface DailyMenuProps {
   selectedDay: DailyWeather | null;
   onChangeDay: (day: DailyWeather) => void;
 }
-
 const DailyMenu = ({ dailyData, selectedDay, onChangeDay }: DailyMenuProps) => {
   return (
     <Menu.Root>

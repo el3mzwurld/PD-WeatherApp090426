@@ -17,7 +17,6 @@ import SkeletonLayout from "../components/skeletonLayout";
 import Nav from "../components/navigationBar";
 import { LuSearch } from "react-icons/lu";
 import Layout from "../components/Layout";
-
 // hooks and types
 import useGeocoding from "../hooks/useGeoResults";
 import type { GeoCodingRes, SelectedLocation } from "../Types/weatherTypes";
